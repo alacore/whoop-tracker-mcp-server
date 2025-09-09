@@ -1,0 +1,39 @@
+{
+  "name": "whoop-mcp",
+  "version": "1.0.0",
+  "description": "MCP (Model Context Protocol) server for Whoop API integration",
+  "main": "dist/mcp-standalone.js",
+  "bin": {
+    "whoop-mcp": "./dist/mcp-standalone.js"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/mcp-standalone.js",
+    "dev": "tsx --env-file=.env src/mcp-standalone.ts"
+  },
+  "keywords": [
+    "mcp",
+    "whoop",
+    "api",
+    "oauth",
+    "modelcontextprotocol",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "reflect-metadata": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "dotenv": "^17.2.1",
+    "tsx": "^4.11.2",
+    "typescript": "^5.6.0"
+  }
+}
