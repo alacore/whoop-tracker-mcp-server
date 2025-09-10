@@ -1,0 +1,30 @@
+# CODEOWNERS file for Whoop Fitness MCP Server
+# These owners will be the default owners for everything in the repo
+# They will be requested for review when someone opens a pull request
+
+# Default owners for all files
+* @your-github-username
+
+# TypeScript and JavaScript files
+*.ts @your-github-username
+*.js @your-github-username
+
+# Configuration files
+package.json @your-github-username
+pnpm-lock.yaml @your-github-username
+tsconfig.json @your-github-username
+.env* @your-github-username
+
+# Documentation
+*.md @your-github-username
+LICENSE @your-github-username
+
+# GitHub specific files
+.github/ @your-github-username
+
+# MCP server implementation
+src/mcp-standalone.ts @your-github-username
+
+# Docker files
+Dockerfile @your-github-username
+.dockerignore @your-github-username
