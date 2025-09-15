@@ -1,11 +1,24 @@
 {
-  "name": "whoop-mcp",
+  "name": "@whoop-tracker/mcp-server",
   "version": "1.0.0",
-  "description": "MCP (Model Context Protocol) server for Whoop API integration",
+  "description": "MCP (Model Context Protocol) server for Whoop APIv2 integration",
   "main": "dist/mcp-standalone.js",
   "bin": {
     "whoop-mcp": "./dist/mcp-standalone.js"
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alacore/whoop-tracker-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alacore/whoop-tracker-mcp-server/issues"
+  },
+  "homepage": "https://github.com/alacore/whoop-tracker-mcp-server#readme",
   "packageManager": "pnpm@10.15.1",
   "engines": {
     "node": ">=22.0.0",
@@ -24,7 +37,10 @@
     "modelcontextprotocol",
     "claude"
   ],
-  "author": "",
+  "author": "Alex K. <alacore@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.4",
