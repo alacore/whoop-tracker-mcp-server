@@ -1,10 +1,10 @@
 {
-  "name": "@whoop-tracker/mcp-server",
+  "name": "@alacore/whoop-mcp-server",
   "version": "1.0.0",
   "description": "MCP (Model Context Protocol) server for Whoop APIv2 integration",
   "main": "dist/mcp-standalone.js",
   "bin": {
-    "whoop-mcp": "./dist/mcp-standalone.js"
+    "whoop-mcp": "dist/mcp-standalone.js"
   },
   "files": [
     "dist/**/*",
