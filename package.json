@@ -21,7 +21,7 @@
   "homepage": "https://github.com/alacore/whoop-tracker-mcp-server#readme",
   "packageManager": "pnpm@10.15.1",
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
   },
   "scripts": {

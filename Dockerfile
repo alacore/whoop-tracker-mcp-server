@@ -1,5 +1,5 @@
 # Multi-stage build for smaller image size
-FROM node:22-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
@@ -21,7 +21,7 @@ COPY src/mcp-standalone.ts ./src/
 RUN pnpm run build
 
 # Production stage
-FROM node:22-alpine
+FROM node:20-alpine
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
