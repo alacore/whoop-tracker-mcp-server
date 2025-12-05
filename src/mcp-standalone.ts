@@ -92,6 +92,41 @@ class WhoopMcpServer {
     return Date.now() > expirationTime - 60000; // 1 minute buffer
   }
 
+  /**
+   * FIX: Convert date string to ISO 8601 datetime format required by WHOOP API v2
+   *
+   * PROBLEMA RISOLTO (5 Dic 2025):
+   * L'API WHOOP v2 richiede date in formato RFC 3339 completo (es: "2025-12-04T00:00:00.000Z")
+   * ma spesso vengono passate date semplici (es: "2025-12-04").
+   * Passare solo la data causa HTTP 404 invece di un errore di validazione più chiaro.
+   *
+   * Questa funzione converte automaticamente:
+   * - "2025-12-04" → "2025-12-04T00:00:00.000Z" (inizio giornata UTC)
+   * - "2025-12-04T10:30:00" → mantiene il formato (già completo)
+   * - "2025-12-04T10:30:00.000Z" → mantiene il formato (già ISO 8601)
+   *
+   * @param dateStr - Data in formato YYYY-MM-DD o ISO 8601
+   * @param endOfDay - Se true, usa 23:59:59.999Z invece di 00:00:00.000Z (per parametro "end")
+   * @returns Data in formato ISO 8601 completo
+   */
+  private toIso8601DateTime(dateStr: string, endOfDay: boolean = false): string {
+    if (!dateStr) return dateStr;
+
+    // Se già contiene "T", assume che sia già in formato datetime
+    if (dateStr.includes("T")) {
+      // Aggiungi Z se manca timezone
+      if (!dateStr.endsWith("Z") && !dateStr.includes("+") && !dateStr.includes("-", 10)) {
+        return dateStr + "Z";
+      }
+      return dateStr;
+    }
+
+    // Formato YYYY-MM-DD → converti a ISO 8601
+    // Per "end" date, usa fine giornata per includere tutto il giorno
+    const time = endOfDay ? "T23:59:59.999Z" : "T00:00:00.000Z";
+    return dateStr + time;
+  }
+
   private setupHandlerMap() {
     this.handlers.set("whoop_auth_url", this.handleAuthUrl.bind(this));
     this.handlers.set("whoop_exchange_token", this.handleTokenExchange.bind(this));
@@ -536,8 +571,9 @@ class WhoopMcpServer {
     await this.ensureValidToken();
 
     const params = new URLSearchParams();
-    if (args?.start) params.append("start", args.start);
-    if (args?.end) params.append("end", args.end);
+    // FIX: Converti date a formato ISO 8601 completo (richiesto da WHOOP API v2)
+    if (args?.start) params.append("start", this.toIso8601DateTime(args.start, false));
+    if (args?.end) params.append("end", this.toIso8601DateTime(args.end, true));
     if (args?.limit) params.append("limit", args.limit.toString());
     if (args?.nextToken) params.append("nextToken", args.nextToken);
 
@@ -604,8 +640,9 @@ class WhoopMcpServer {
     await this.ensureValidToken();
 
     const params = new URLSearchParams();
-    if (args?.start) params.append("start", args.start);
-    if (args?.end) params.append("end", args.end);
+    // FIX: Converti date a formato ISO 8601 completo (richiesto da WHOOP API v2)
+    if (args?.start) params.append("start", this.toIso8601DateTime(args.start, false));
+    if (args?.end) params.append("end", this.toIso8601DateTime(args.end, true));
     if (args?.limit) params.append("limit", args.limit.toString());
     if (args?.nextToken) params.append("nextToken", args.nextToken);
 
@@ -672,8 +709,9 @@ class WhoopMcpServer {
     await this.ensureValidToken();
 
     const params = new URLSearchParams();
-    if (args?.start) params.append("start", args.start);
-    if (args?.end) params.append("end", args.end);
+    // FIX: Converti date a formato ISO 8601 completo (richiesto da WHOOP API v2)
+    if (args?.start) params.append("start", this.toIso8601DateTime(args.start, false));
+    if (args?.end) params.append("end", this.toIso8601DateTime(args.end, true));
     if (args?.limit) params.append("limit", args.limit.toString());
     if (args?.nextToken) params.append("nextToken", args.nextToken);
 
@@ -773,8 +811,9 @@ class WhoopMcpServer {
     await this.ensureValidToken();
 
     const params = new URLSearchParams();
-    if (args?.start) params.append("start", args.start);
-    if (args?.end) params.append("end", args.end);
+    // FIX: Converti date a formato ISO 8601 completo (richiesto da WHOOP API v2)
+    if (args?.start) params.append("start", this.toIso8601DateTime(args.start, false));
+    if (args?.end) params.append("end", this.toIso8601DateTime(args.end, true));
     if (args?.limit) params.append("limit", args.limit.toString());
     if (args?.nextToken) params.append("nextToken", args.nextToken);
 
